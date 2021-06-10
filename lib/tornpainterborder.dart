@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
+/// CustomPaint for the Border
 class TornPainterBorder extends CustomPainter {
+  /// Outline Path
   final Path path;
+  /// Has Border or not
   final bool hasBorder;
+  /// Paint of the Border (color)
   late final Paint paintWhiteStroke;
 
+  /// Constructor of the TornPainterBorder
   TornPainterBorder(
       this.path, this.hasBorder, Color colorOfTorn, double strokeWidth) {
     paintWhiteStroke = Paint()
@@ -15,7 +20,9 @@ class TornPainterBorder extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (hasBorder) canvas.drawPath(path, paintWhiteStroke);
+    if (hasBorder) {
+      canvas.drawPath(path, paintWhiteStroke);
+    }
   }
 
   @override

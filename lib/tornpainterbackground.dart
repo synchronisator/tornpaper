@@ -3,18 +3,31 @@ import 'dart:ui';
 import 'package:fast_noise/fast_noise.dart';
 import 'package:flutter/material.dart';
 
+/// CustomPaint for the Background
 class TornPainterBackground extends CustomPainter {
+  
+  /// Path for the outline
   final Path path;
+  /// width of the container to calculate the noise
   final double width;
+  /// height of the container to calculate the noise
   final double height;
-  late final Paint paintWhite;
+  /// Paint for the Background fill color
+  late final Paint paintBackground;
+  /// Has Noise or not
   final bool hasNoise;
+  /// Color of the noise
   final Color noiseColor;
+  /// Has Shadow or not
   final bool hasShadow;
+  /// Color of the shadow
   final Color shadowColor;
+  /// Shifted Path for Shadow, Calculated by given shadowOffset
   late final Path shiftedPath;
-  late final Map<Color, List<Offset>> points = {};
+  /// Map with a List of Point for diffrent Colors, used to draw the noise
+  late final Map<Color, List<Offset>> noisePoints = {};
 
+  /// Constuctor of the TornPainterBackground
   TornPainterBackground(
     this.path,
     this.width,
@@ -27,12 +40,12 @@ class TornPainterBackground extends CustomPainter {
     this.shadowColor,
   ) {
     shiftedPath = path.shift(shadowOffset);
-    paintWhite = Paint()
+    paintBackground = Paint()
       ..color = backgroundColor
       ..style = PaintingStyle.fill;
 
     if (hasNoise) {
-      List<List<double>> noise = noise2(width.toInt(), height.toInt(),
+      final List<List<double>> noise = noise2(width.toInt(), height.toInt(),
           noiseType: NoiseType.Perlin,
           octaves: 5,
           frequency: 0.75,
@@ -42,14 +55,14 @@ class TornPainterBackground extends CustomPainter {
       for (var x = 0; x < width; x++) {
         for (var y = 0; y < height; y++) {
           // var c = (0x80 + 0x80 * noise[x][y]).floor(); // grayscale
-          var offset = Offset(x.toDouble(), y.toDouble());
+          final offset = Offset(x.toDouble(), y.toDouble());
           if (!path.contains(offset)) {
             continue;
           }
-          var color = Color.fromRGBO(
+          final color = Color.fromRGBO(
               noiseColor.red, noiseColor.green, noiseColor.blue, noise[x][y]);
-          points.putIfAbsent(color, () => []);
-          points[color]!.add(offset);
+          noisePoints.putIfAbsent(color, () => []);
+          noisePoints[color]!.add(offset);
         }
       }
     }
@@ -60,9 +73,9 @@ class TornPainterBackground extends CustomPainter {
     if (hasShadow) {
       canvas.drawShadow(shiftedPath, shadowColor, 1.0, true);
     }
-    canvas.drawPath(path, paintWhite);
+    canvas.drawPath(path, paintBackground);
     if (hasNoise) {
-      points.forEach((key, value) {
+      noisePoints.forEach((key, value) {
         canvas.drawPoints(
             PointMode.points,
             value,

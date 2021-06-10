@@ -8,24 +8,49 @@ import 'package:tornpaper/clippath.dart';
 import 'package:tornpaper/tornpainterbackground.dart';
 import 'package:tornpaper/tornpainterborder.dart';
 
-enum TornedSide { left, top, right, bottom }
+/// Enum with the possible Sides
+enum TornedSide {
+  /// Flag for a torn side left
+  left,
+  /// Flag for a torn side top
+  top,
+  /// Flag for a torn side right
+  right,
+  /// Flag for a torn side bottom
+  bottom }
 
+  /// TornPaper
 class TornPaper extends StatefulWidget {
+  /// child widget inside this Container
   final Widget child;
+  /// List of sides that are torned
   final List<TornedSide> tornedSides;
+  /// Randomseed for torn generation
   final int seed;
+  /// step width of torn
   final int stepWidth;
+  /// Color of torn
   final Color tornColor;
+  /// Width of torn as meant as thickness of border
   final double tornWidth;
+  /// How deep is your Torn?
   final double tornDeepness;
+  /// Color of Background
   final Color backgroundColor;
+  /// Has Noise or not
   final bool hasNoise;
+  /// Color of Noise
   final Color noiseColor;
+  /// Has Border or not
   final bool hasBorder;
+  /// Has shadow or not
   final bool hasShadow;
+  /// Offset of the shadow in relation to the container
   final Offset shadowOffset;
+  /// Color of the shadow
   final Color shadowColor;
 
+  /// Constructor of TornPaper
   TornPaper(
       {this.child = const SizedBox.shrink(),
       this.tornedSides = const [],
@@ -42,10 +67,7 @@ class TornPaper extends StatefulWidget {
       this.shadowColor = Colors.black,
       this.hasShadow = true,
       Key? key})
-      : super(key: key) {
-    assert(stepWidth > 0);
-    assert(tornWidth > 0);
-  }
+      : assert(stepWidth > 0), assert(tornWidth > 0), super(key: key);
 
   @override
   _TornPaperState createState() => _TornPaperState();
@@ -87,8 +109,8 @@ class _TornPaperState extends State<TornPaper> {
   }
 
   Path getPath(BoxConstraints constraints) {
-    var maxWidth = constraints.biggest.width;
-    var maxHeight = constraints.maxHeight;
+    final maxWidth = constraints.biggest.width;
+    final maxHeight = constraints.maxHeight;
     if (maxWidth == _lastWidth && maxHeight == _lastHeight) {
       return _lastPath;
     }
@@ -99,30 +121,30 @@ class _TornPaperState extends State<TornPaper> {
     _randomTop = Random(widget.seed * 3);
     _randomBottom = Random(widget.seed * 4);
 
-    List<double> doublesRight = List.generate(maxHeight.toInt(),
-        (index) => (_randomRight.nextDouble() * widget.tornDeepness));
+    final List<double> doublesRight = List.generate(maxHeight.toInt(),
+        (index) => _randomRight.nextDouble() * widget.tornDeepness);
     doublesRight.first = widget.tornDeepness;
     doublesRight.last = 0.0;
-    List<double> doublesLeft = List.generate(maxHeight.toInt(),
-        (index) => (_randomLeft.nextDouble() * widget.tornDeepness));
+    final List<double> doublesLeft = List.generate(maxHeight.toInt(),
+        (index) => _randomLeft.nextDouble() * widget.tornDeepness);
     doublesLeft.first = 0.0;
     doublesLeft.last = 0.0;
-    List<double> doublesTop = List.generate(maxWidth.toInt(),
-        (index) => (_randomTop.nextDouble() * widget.tornDeepness));
+    final List<double> doublesTop = List.generate(maxWidth.toInt(),
+        (index) => _randomTop.nextDouble() * widget.tornDeepness);
     doublesTop.first = 0.0;
     doublesTop.last = widget.tornDeepness;
-    List<double> doublesBottom = List.generate(maxWidth.toInt(),
-        (index) => (_randomBottom.nextDouble() * widget.tornDeepness));
+    final List<double> doublesBottom = List.generate(maxWidth.toInt(),
+        (index) => _randomBottom.nextDouble() * widget.tornDeepness);
     doublesBottom.first = widget.tornDeepness;
     doublesBottom.last = widget.tornDeepness;
 
-    Path pathWhite = Path();
+    final Path pathWhite = Path();
     pathWhite.moveTo(0, 0);
 
     // top
     if (widget.tornedSides.contains(TornedSide.top)) {
       for (var i = 0; i < doublesTop.length; i += widget.stepWidth) {
-        pathWhite.lineTo((i).toDouble(), doublesTop[i]);
+        pathWhite.lineTo(i.toDouble(), doublesTop[i]);
       }
     }
     pathWhite.lineTo(maxWidth, 0);
@@ -131,7 +153,7 @@ class _TornPaperState extends State<TornPaper> {
     if (widget.tornedSides.contains(TornedSide.right)) {
       for (var i = 0; i < doublesRight.length; i += widget.stepWidth) {
         pathWhite.lineTo(
-            maxWidth - widget.tornDeepness + doublesRight[i], (i).toDouble());
+            maxWidth - widget.tornDeepness + doublesRight[i], i.toDouble());
       }
     }
     pathWhite.lineTo(maxWidth, maxHeight);
@@ -139,7 +161,7 @@ class _TornPaperState extends State<TornPaper> {
     // bottom
     if (widget.tornedSides.contains(TornedSide.bottom)) {
       for (var i = 0; i < doublesBottom.length; i += widget.stepWidth) {
-        pathWhite.lineTo(maxWidth - (i).toDouble(),
+        pathWhite.lineTo(maxWidth - i.toDouble(),
             maxHeight + doublesBottom[i] - widget.tornDeepness);
       }
     }
@@ -148,7 +170,7 @@ class _TornPaperState extends State<TornPaper> {
     //left
     if (widget.tornedSides.contains(TornedSide.left)) {
       for (var i = 0; i < doublesLeft.length; i += widget.stepWidth) {
-        pathWhite.lineTo(doublesLeft[i], maxHeight - (i).toDouble());
+        pathWhite.lineTo(doublesLeft[i], maxHeight - i.toDouble());
       }
     }
     pathWhite.lineTo(0, 0);

@@ -6,22 +6,27 @@ void main() {
   runApp(MyApp());
 }
 
+/// Example App
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tornpaper Example',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Tornpaper Example'),
     );
   }
 }
 
+/// Example Mainpage
 class MyHomePage extends StatefulWidget {
+
+  /// Constructor
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
+  /// Example title
   final String title;
 
   @override
@@ -40,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double seedValue = 200;
   int stepWidth = 8;
   double tornWidth = 1.0;
-  Color backgroundColor = Color.fromRGBO(215, 215, 160, 1.0);
+  Color backgroundColor = const Color.fromRGBO(215, 215, 160, 1.0);
   bool hasNoise = false;
   Color noiseColor = Colors.white;
   bool hasShadow = true;
@@ -95,14 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "TornPaper - Settings",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 30),
                             ),
                             Row(
-                              children: [
-                                Text("Torned Sides"),
+                              children: const [
+                                const Text("Torned Sides"),
                               ],
                             ),
                             Row(
@@ -115,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     });
                                   },
                                 ),
-                                Text("Top"),
+                                const Text("Top"),
                               ],
                             ),
                             Row(
@@ -128,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     });
                                   },
                                 ),
-                                Text("Bottom"),
+                                const Text("Bottom"),
                               ],
                             ),
                             Row(
@@ -141,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     });
                                   },
                                 ),
-                                Text("Left"),
+                                const Text("Left"),
                               ],
                             ),
                             Row(
@@ -154,12 +159,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                     });
                                   },
                                 ),
-                                Text("Right"),
+                                const Text("Right"),
                               ],
                             ),
                             Row(
                               children: [
-                                Text("Torn StepWidth"),
+                                const Text("Torn StepWidth"),
                                 Slider(
                                   value: stepWidth.toDouble(),
                                   min: 1,
@@ -176,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Row(
                               children: [
-                                Text("Torn Deepness"),
+                                const Text("Torn Deepness"),
                                 Slider(
                                   value: tornDeepness.toDouble(),
                                   min: 0,
@@ -201,16 +206,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                     });
                                   },
                                 ),
-                                Text("Has Border "),
+                                const Text("Has Border "),
                               ],
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 30.0),
                               child: Row(
                                 children: [
-                                  Text("Border Color "),
+                                  const Text("Border Color "),
                                   IconButton(
-                                      icon: Icon(Icons.color_lens),
+                                      icon: const Icon(Icons.color_lens),
                                       color: tornColor,
                                       onPressed: !hasBorder
                                           ? null
@@ -226,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               padding: const EdgeInsets.only(left: 30.0),
                               child: Row(
                                 children: [
-                                  Text("Torn width"),
+                                  const Text("Torn width"),
                                   Slider(
                                     value: tornWidth.toDouble(),
                                     min: 0.1,
@@ -244,7 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Row(
                               children: [
-                                Text("Seed"),
+                                const Text("Seed"),
                                 Slider(
                                   value: seedValue.toDouble(),
                                   min: 0,
@@ -261,9 +266,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Row(
                               children: [
-                                Text("Background Color "),
+                                const Text("Background Color "),
                                 IconButton(
-                                    icon: Icon(Icons.color_lens),
+                                    icon: const Icon(Icons.color_lens),
                                     color: Colors.black,
                                     onPressed: () => showShadowColorDialog(
                                         context,
@@ -282,16 +287,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                     });
                                   },
                                 ),
-                                Text("Has Shadow"),
+                                const Text("Has Shadow"),
                               ],
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 30.0),
                               child: Row(
                                 children: [
-                                  Text("Shadow Color "),
+                                  const Text("Shadow Color "),
                                   IconButton(
-                                      icon: Icon(Icons.color_lens),
+                                      icon: const Icon(Icons.color_lens),
                                       color: shadowColor,
                                       onPressed: hasShadow
                                           ? () => showShadowColorDialog(
@@ -307,7 +312,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               padding: const EdgeInsets.only(left: 30.0),
                               child: Row(
                                 children: [
-                                  Text("Shadow Offset "),
+                                  const Text("Shadow Offset "),
                                   Column(
                                     children: [
                                       Slider(
@@ -343,8 +348,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ],
                               ),
                             ),
-                            Divider(),
-                            Text("Experimental"),
+                            const Divider(),
+                            const Text("Experimental"),
                             Row(
                               children: [
                                 Checkbox(
@@ -355,16 +360,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                     });
                                   },
                                 ),
-                                Text("Has Noise"),
+                                const Text("Has Noise"),
                                 IconButton(
-                                    icon: Icon(Icons.color_lens),
+                                    icon: const Icon(Icons.color_lens),
                                     color: noiseColor,
                                     onPressed: () => showShadowColorDialog(
                                         context,
                                         noiseColor,
                                         (color) => setState(
                                             () => noiseColor = color))),
-                                Text("Warning: Extremly unperformant!"),
+                                const Text("Warning: Extremly unperformant!"),
                               ],
                             ),
                           ],
@@ -398,14 +403,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
                           Navigator.of(context).pop();
                         });
                       },
-                      child: Text("OK"))
+                      child: const Text("OK"))
                 ],
               )
             ],
