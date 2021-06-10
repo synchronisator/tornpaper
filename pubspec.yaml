@@ -1,7 +1,7 @@
 name: tornpaper
 description: A Flutter Container that looks like a (maybe torn) paper
-version: 0.0.1
-homepage:
+version: 0.0.2
+homepage: http://synchrondev.de
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
