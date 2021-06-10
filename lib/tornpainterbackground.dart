@@ -35,7 +35,7 @@ class TornPainterBackground extends CustomPainter {
       List<List<double>> noise = noise2(width.toInt(), height.toInt(),
           noiseType: NoiseType.Perlin,
           octaves: 5,
-          frequency: 0.15,
+          frequency: 0.75,
           cellularDistanceFunction: CellularDistanceFunction.Euclidean,
           cellularReturnType: CellularReturnType.CellValue);
 
@@ -58,7 +58,7 @@ class TornPainterBackground extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (hasShadow) {
-      canvas.drawShadow(shiftedPath, shadowColor, 1.0, false);
+      canvas.drawShadow(shiftedPath, shadowColor, 1.0, true);
     }
     canvas.drawPath(path, paintWhite);
     if (hasNoise) {

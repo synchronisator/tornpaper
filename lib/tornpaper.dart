@@ -116,13 +116,6 @@ class _TornPaperState extends State<TornPaper> {
     doublesBottom.first = widget.tornDeepness;
     doublesBottom.last = widget.tornDeepness;
 
-    Path pathBackground = Path();
-    pathBackground.moveTo(0, 0);
-    pathBackground.lineTo(maxWidth, 0);
-    pathBackground.lineTo(maxWidth, maxHeight);
-    pathBackground.lineTo(0, maxHeight);
-    pathBackground.close();
-
     Path pathWhite = Path();
     pathWhite.moveTo(0, 0);
 

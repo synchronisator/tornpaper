@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.green,
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(100.0),
+            padding: const EdgeInsets.all(50.0),
             child: SizedBox.expand(
               child: Stack(
                 children: [
