@@ -14,6 +14,4 @@ jobs:
       - name: tornpaper
         uses: k-paxian/dart-package-publisher@master
         with:
-          accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
-          refreshToken: ${{ secrets.OAUTH_REFRESH_TOKEN }}
-          dryRunOnly: true
+          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
